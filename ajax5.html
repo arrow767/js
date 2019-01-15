@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Ajax 5 - Fetch from PHP mySQL</title>
+</head>
+<body onload="loadUsers()">
+	<select onchange = "getter()" id="location_selector">
+			<option>all</option></select>
+
+	<select onchange = "getter()" id="car_selector">
+			<option>all</option></select>
+
+	<select onchange = "getter()" id="year_selector">
+			<option>all</option></select>
+	<div id="content">
+
+	</div>
+	<script>
+
+		function loadUsers() {
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', 'users.php', true);
+			xhr.onload = function() {
+				if(this.status == 200) {
+					var users = JSON.parse(this.responseText);
+
+					var location_selector = '';
+					var car_selector 	  = '';
+					var year_selector     = '';
+				
+				for(var i in users) {
+					location_selector += 
+						'<option value = "'+users[i].location_car +'">' +users[i].location_car + '</option>';
+
+
+						car_selector += 
+						'<option value = "'+users[i].brand_car +'">' +users[i].brand_car + '</option>';
+
+
+						year_selector  += 
+						'<option value = "'+users[i].year_car  +'">' +users[i].year_car  + '</option>';
+
+
+					console.log(users[i].brand_car);
+					console.log(users[i].id);
+				}
+				
+
+				loc_sel = document.getElementById('location_selector');
+				car_sel = document.getElementById('car_selector');
+				year_sel = document.getElementById('year_selector');
+				console.log(loc_sel.value);
+				console.log(car_sel.value);
+				console.log(year_sel.value);
+				var output1 = '';
+				if(loc_sel.value == 'all' && car_sel.value == 'all' && year_sel.value == 'all'){
+					for(var i in users) {
+					output1 += 
+						'<option value = "'+users[i].brand_car +'">BRAND:' +users[i].brand_car + '</option>' +
+						'<option value = "'+users[i].price_car +'">PRICE:' +users[i].price_car + '</option>' + '<br>';
+					// console.log(users[i].brand_car);
+					// console.log(users[i].id);
+				}
+				document.getElementById('content').innerHTML = output1;
+				}
+				document.getElementById('location_selector').innerHTML += location_selector;
+
+				document.getElementById('car_selector').innerHTML += car_selector;
+
+				document.getElementById('year_selector').innerHTML += year_selector;
+		}
+		}
+		xhr.send();
+		}
+		
+		function getter() {
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', 'users.php', true);
+			xhr.onload = function() {
+				if(this.status == 200) {
+					var users = JSON.parse(this.responseText);
+				
+				loc_sel = document.getElementById('location_selector');
+				car_sel = document.getElementById('car_selector');
+				year_sel = document.getElementById('year_selector');
+				console.log(loc_sel.value);
+				console.log(car_sel.value);
+				console.log(year_sel.value);
+				var output1 = '';
+				if(loc_sel.value == 'all' || car_sel.value == 'all' || year_sel.value == 'all'){
+					for(var i in users) {
+					output1 += 
+						'<option value = "'+users[i].brand_car +'">BRAND:' +users[i].brand_car + '</option>' +
+						'<option value = "'+users[i].price_car +'">PRICE:' +users[i].price_car + '</option>' + '<br>';
+					// console.log(users[i].brand_car);
+					// console.log(users[i].id);
+				}
+				document.getElementById('content').innerHTML = output1;
+				}
+
+
+
+
+				loc_sel = document.getElementById('location_selector');
+				car_sel = document.getElementById('car_selector');
+				year_sel = document.getElementById('year_selector');
+				 if(loc_sel.value != 'all') {
+					for(var i in users){
+					var track = users.filter(function(e){
+							return e.location_car == loc_sel.value;
+					})
+				 }
+					
+					
+			}
+			
+			var output1 = '';
+			for(var i in track){
+				console.log(track[i].location_car);
+				output1 += '<option>BRAND:'+track[i].brand_car+'</option>'+
+				'<option>PRICE:'+track[i].price_car+'</option>'+'<br>';
+				document.getElementById('content').innerHTML = output1;
+			}
+
+				
+
+
+				
+				
+			}
+			
+			}
+			xhr.send();
+		}
+
+			
+
+		
+	</script>
+	
+	
+</body>
+</html>

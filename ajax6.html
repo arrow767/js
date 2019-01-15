@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Ajax 5 - Fetch from PHP mySQL</title>
+</head>
+<body onload="loadUsers()">
+	<select onchange = "getter()" id="location_selector">
+			<option>all</option></select>
+
+	<select onchange = "getter()" id="car_selector">
+			<option>all</option></select>
+
+	<select onchange = "getter()" id="year_selector">
+			<option>all</option></select>
+	<div id="content">
+
+	</div>
+	<script>
+
+var arr = [1, 2];
+var brr = arr;
+brr = [42, 43];
+arr[0];
+console.log(arr[0]);
+
+
+		function loadUsers() {
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', 'users.php', true);
+			xhr.onload = function() {
+				if(this.status == 200) {
+					var users = JSON.parse(this.responseText);
+
+					var location_selector = '';
+					var car_selector 	  = '';
+					var year_selector     = '';
+				
+				for(var i in users) {
+					location_selector += 
+						'<option value = "'+users[i].location_car +'">' +users[i].location_car + '</option>';
+
+
+						car_selector += 
+						'<option value = "'+users[i].brand_car +'">' +users[i].brand_car + '</option>';
+
+
+						year_selector  += 
+						'<option value = "'+users[i].year_car  +'">' +users[i].year_car  + '</option>';
+				}
+				document.getElementById('location_selector').innerHTML += location_selector;
+
+				document.getElementById('car_selector').innerHTML += car_selector;
+
+				document.getElementById('year_selector').innerHTML += year_selector;
+				}
+				
+			}
+		xhr.send();
+			}
+
+			function getter() {
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', 'users.php', true);
+			xhr.onload = function() {
+				if(this.status == 200) {
+					var users = JSON.parse(this.responseText);
+				
+				loc_sel = document.getElementById('location_selector');
+				car_sel = document.getElementById('car_selector');
+				year_sel = document.getElementById('year_selector');
+				console.log(loc_sel.value);
+				console.log(car_sel.value);
+				console.log(year_sel.value);
+				console.log(users);
+				console.log(JSON.stringify(users, ['brand_car']));
+				var xhr = new XMLHttpRequest();
+				console.log(xhr);
+				}
+				}
+				xhr.send();
+			}
+		
+	</script>
+	
+	
+</body>
+</html>

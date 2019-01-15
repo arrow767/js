@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>JS Arrays</title>
+</head>
+<body>
+
+</body>
+</html>
+
+<script>
+	var arr = [1, 2];
+	var brr = arr;
+	brr = [42, 43];
+	arr[0];
+	console.log(brr[0]);
+
+
+	var car = [
+		"type",
+		carType = [
+			"Грузовой",
+			"Легковой"],
+		"Радио",
+		"Цвет",
+		"Скорость"
+	];
+
+	var i = car.length;
+	car[i] = "Тормоз";
+	car[i+1] = "Салон";
+
+	var nam = car[1].push("Porsche", "Audi");
+
+
+		console.log(car);
+		console.log(car.length);
+		console.log(car.length - 1);
+
+	// for (var i =0; i < 10; i++) {
+	// 	setTimeout((function(i) {
+	// 		return function () {
+	// 			console.log(i);
+	// 		}
+	// 	}) (i), i*1000);
+	// }
+
+
+	var arr = [2011, 2018, 2013, 2014, 2015, 2016, 2017, 2012, 2012];
+	arr.sort(function(a, b) {
+		return a - b;
+	});
+
+	uniqueArray = arr.filter(function(item, pos) {
+	    return arr.indexOf(item) == pos;
+	})
+	console.log(uniqueArray);
+</script>
