@@ -45,7 +45,7 @@
 
 
 					console.log(users[i].brand_car);
-					console.log(users[i].id);
+					// console.log(users[i].id);
 				}
 				
 
@@ -90,7 +90,7 @@
 				console.log(car_sel.value);
 				console.log(year_sel.value);
 				var output1 = '';
-				if(loc_sel.value == 'all' || car_sel.value == 'all' || year_sel.value == 'all'){
+				if(loc_sel.value == 'all' && car_sel.value == 'all' && year_sel.value == 'all'){
 					for(var i in users) {
 					output1 += 
 						'<option value = "'+users[i].brand_car +'">BRAND:' +users[i].brand_car + '</option>' +
@@ -107,15 +107,35 @@
 				loc_sel = document.getElementById('location_selector');
 				car_sel = document.getElementById('car_selector');
 				year_sel = document.getElementById('year_selector');
-				 if(loc_sel.value != 'all') {
+				
+				let superFilter = users.map(x => ({location_car: loc_sel.value, brand_car: car_sel.value, year_car: year_sel.value}));
+				
 					for(var i in users){
+					var trackall;
 					var track = users.filter(function(e){
-							return e.location_car == loc_sel.value;
+							return e.location_car == loc_sel.value ||
+							       e.brand_car == car_sel.value    ||
+								   e.year_car == year_sel.value;
+								   
+								   
 					})
+					
 				 }
 					
+
+
+
+			// else if(loc_sel.value != 'all' && loc_sel.value != 'all') {
+			// 		for(var i in users){
+			// 		var track = users.filter(function(e){
+			// 				return e.location_car == loc_sel.value &&
+			// 				       e.brand_car == car_sel.value;
+			// 		})
 					
-			}
+			// 	 }
+				 
+					
+			// }
 			
 			var output1 = '';
 			for(var i in track){
@@ -123,11 +143,15 @@
 				output1 += '<option>BRAND:'+track[i].brand_car+'</option>'+
 				'<option>PRICE:'+track[i].price_car+'</option>'+'<br>';
 				document.getElementById('content').innerHTML = output1;
+				console.log(track[i].location_car === loc_sel.value);
+				if(track[i].location_car != true) {
+					delete track[i].location_car != loc_sel.value;
+				}
 			}
 
-				
-
-
+			console.log(track);
+			
+			// console.log(superFilter);
 				
 				
 			}
